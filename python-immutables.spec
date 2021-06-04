@@ -27,7 +27,7 @@ get() operations, which is essentially O(1) for relatively small mappings.}
 
 Name:           python-%{pkgname}
 Version:        0.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Immutable Collections
 License:        ASL 2.0 and MIT
 URL:            https://github.com/MagicStack/immutables
@@ -87,6 +87,9 @@ sed -e '/include_package_data=/ s/True/False/' -i setup.py
 
 
 %changelog
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.15-3
+- Rebuilt for Python 3.10
+
 * Wed Apr 21 2021 Carl George <carl@george.computer> - 0.15-2
 - Include missing upstream license
 - Disable package data in setup.py to avoid installing source files
