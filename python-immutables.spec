@@ -27,7 +27,7 @@ get() operations, which is essentially O(1) for relatively small mappings.}
 
 Name:           python-%{pkgname}
 Version:        0.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Immutable Collections
 License:        ASL 2.0 and MIT
 URL:            https://github.com/MagicStack/immutables
@@ -87,6 +87,9 @@ sed -e '/include_package_data=/ s/True/False/' -i setup.py
 
 
 %changelog
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
 * Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.15-3
 - Rebuilt for Python 3.10
 
