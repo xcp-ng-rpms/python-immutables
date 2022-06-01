@@ -1,11 +1,4 @@
-# what it's called on pypi
 %global srcname immutables
-# what it's imported as
-%global libname %{srcname}
-# name of egg info directory
-%global eggname %{srcname}
-# package name fragment
-%global pkgname %{srcname}
 
 %bcond_without  tests
 
@@ -21,7 +14,7 @@ Immutable mappings based on HAMT have O(log N) performance for both set() and
 get() operations, which is essentially O(1) for relatively small mappings.}
 
 
-Name:           python-%{pkgname}
+Name:           python-%{srcname}
 Version:        0.18
 Release:        1%{?dist}
 Summary:        Immutable Collections
@@ -35,21 +28,19 @@ BuildRequires:  gcc
 %description %{common_description}
 
 
-%package -n python3-%{pkgname}
+%package -n python3-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %if %{with tests}
 BuildRequires:  python3-pytest
 %endif
 
 
-%description -n python3-%{pkgname} %{common_description}
+%description -n python3-%{srcname} %{common_description}
 
 
 %prep
 %autosetup -n %{srcname}-%{version}
-rm -rf %{eggname}.egg-info
 
 # don't install source files
 sed -e '/include_package_data=/ s/True/False/' -i setup.py
@@ -58,30 +49,35 @@ sed -e '/include_package_data=/ s/True/False/' -i setup.py
 rm tests/conftest.py tests/test_mypy.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 
-%if %{with tests}
 %check
+%if %{with tests}
 %pytest --verbose
+%else
+%pyproject_check_import
 %endif
 
 
-%files -n python3-%{pkgname}
-%license LICENSE LICENSE.MIT
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitearch}/%{libname}
-%{python3_sitearch}/%{eggname}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
 * Wed Jun 01 2022 Carl George <carl@george.computer> - 0.18-1
 - Latest upstream, resolves: rhbz#2092222
+- Convert to pyproject macros
 
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
