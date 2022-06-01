@@ -7,11 +7,7 @@
 # package name fragment
 %global pkgname %{srcname}
 
-# Tests fail on 32-bit
-# https://github.com/MagicStack/immutables/issues/50
-%ifnarch %{ix86} %{arm32}
 %bcond_without  tests
-%endif
 
 %global common_description %{expand:
 An immutable mapping type for Python.
@@ -26,16 +22,13 @@ get() operations, which is essentially O(1) for relatively small mappings.}
 
 
 Name:           python-%{pkgname}
-Version:        0.15
-Release:        5%{?dist}
+Version:        0.18
+Release:        1%{?dist}
 Summary:        Immutable Collections
-License:        ASL 2.0 and MIT
+# The entire source code is ASL 2.0 except pythoncapi_compat.h which is 0BSD.
+License:        ASL 2.0 and 0BSD
 URL:            https://github.com/MagicStack/immutables
-Source0:        %pypi_source
-# upstream is missing license for pythoncapi_compat.h
-# https://github.com/MagicStack/immutables/pull/64
-Source1:        https://raw.githubusercontent.com/pythoncapi/pythoncapi_compat/main/COPYING
-
+Source:         %pypi_source
 BuildRequires:  gcc
 
 
@@ -58,11 +51,11 @@ BuildRequires:  python3-pytest
 %autosetup -n %{srcname}-%{version}
 rm -rf %{eggname}.egg-info
 
-# copy second license file to builddir for %%license macro
-cp %{SOURCE1} LICENSE.MIT
-
 # don't install source files
 sed -e '/include_package_data=/ s/True/False/' -i setup.py
+
+# delete mypy tests to avoid that dependency
+rm tests/conftest.py tests/test_mypy.py
 
 
 %build
@@ -87,6 +80,9 @@ sed -e '/include_package_data=/ s/True/False/' -i setup.py
 
 
 %changelog
+* Wed Jun 01 2022 Carl George <carl@george.computer> - 0.18-1
+- Latest upstream, resolves: rhbz#2092222
+
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
