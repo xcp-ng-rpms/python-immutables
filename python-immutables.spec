@@ -16,7 +16,7 @@ get() operations, which is essentially O(1) for relatively small mappings.}
 
 Name:           python-%{srcname}
 Version:        0.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Immutable Collections
 # The entire source code is ASL 2.0 except pythoncapi_compat.h which is 0BSD.
 License:        ASL 2.0 and 0BSD
@@ -75,6 +75,9 @@ rm tests/conftest.py tests/test_mypy.py
 
 
 %changelog
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.18-2
+- Rebuilt for Python 3.11
+
 * Wed Jun 01 2022 Carl George <carl@george.computer> - 0.18-1
 - Latest upstream, resolves: rhbz#2092222
 - Convert to pyproject macros
