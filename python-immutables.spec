@@ -16,7 +16,7 @@ get() operations, which is essentially O(1) for relatively small mappings.}
 
 Name:           python-%{srcname}
 Version:        0.18
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Immutable Collections
 # The entire source code is ASL 2.0 except pythoncapi_compat.h which is 0BSD.
 License:        ASL 2.0 and 0BSD
@@ -75,6 +75,9 @@ rm tests/conftest.py tests/test_mypy.py
 
 
 %changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
 * Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.18-2
 - Rebuilt for Python 3.11
 
