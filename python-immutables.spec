@@ -15,8 +15,8 @@ get() operations, which is essentially O(1) for relatively small mappings.}
 
 
 Name:           python-%{srcname}
-Version:        0.18
-Release:        4%{?dist}
+Version:        0.19
+Release:        1%{?dist}
 Summary:        Immutable Collections
 # The entire source code is Apache-2.0 except pythoncapi_compat.h which is
 # 0BSD.
@@ -83,9 +83,10 @@ rm tests/conftest.py tests/test_mypy.py
 
 
 %changelog
-* Fri Dec 16 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.18-4
+* Fri Dec 16 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.19-1
 - Update License to SPDX
 - Indicate bundling of pythoncapi-compat header-only library
+- Update to 0.19 (close RHBZ#2126990)
 
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
