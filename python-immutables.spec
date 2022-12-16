@@ -35,7 +35,14 @@ BuildRequires:  python3-devel
 %if %{with tests}
 BuildRequires:  python3-pytest
 %endif
-
+# https://github.com/python/pythoncapi-compat
+#
+# Not yet packaged separately in Fedora (review request:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2154546).
+#
+# Upstream has never versioned this header; the contents of the file suggest
+# that it corresponds to commit b079cc4f93f479d7fe92c92be481d7ba66731868.
+Provides:       bundled(pythoncapi-compat) = 0^20220804gitb079cc4
 
 %description -n python3-%{srcname} %{common_description}
 
@@ -78,6 +85,7 @@ rm tests/conftest.py tests/test_mypy.py
 %changelog
 * Fri Dec 16 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.18-4
 - Update License to SPDX
+- Indicate bundling of pythoncapi-compat header-only library
 
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
